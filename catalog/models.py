@@ -263,3 +263,16 @@ class Comment(models.Model):
             "comment_id": self.comment_id,
             "comment_comment": self.comment_comment
         }
+
+    class OrderComment(models.Model):
+        order_comment_id = models.AutoField(primary_key=True)
+        comment_id = models.ForeignKey('Comment', on_delete=models.CASCADE, null=True)
+        order_comment_comment = models.TextField(null=True, blank=True)
+        comment_type = models.CharField(max_length=20, null=True, blank=True)
+
+        def get_full_comment_info(self):
+            return {
+                "order_comment_id": self.order_comment_id,
+                "comment_comment": self.order_comment_comment,
+                "comment_type": self.comment_type,
+            }
