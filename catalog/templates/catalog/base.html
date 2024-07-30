@@ -22,15 +22,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent"> 
             <ul class="navbar-nav me-auto mb-2 mb-lg-0"> 
                 <li class="nav-item"> 
-                    <a class="nav-link" href="{% url 'index' %}">Home</a> 
+                    <a class="nav-link" href="{% url 'index' %}">About Us</a> 
                 </li> 
                 <li class="nav-item"> 
-                    <a class="nav-link" href="#">Orders</a>
+                    <a class="nav-link" href="{% url 'register' %}"> Sign Up Now</a> 
+                    <!--a class="nav-link" href="#">Sign Up</a -->
                     <!--a class="nav-link" href="{% url 'order_list' %}">All Orders</a -->
                 </li> 
-                <li class="nav-item"> 
-                    <a class="nav-link" href="#">Reports</a>
-                </li>
+                <!--li class="nav-item"--> 
+                    <!--a class="nav-link" href="#">Log In</a-->
+                <!--/li-->
             </ul>
         </div>
 
@@ -44,10 +45,11 @@
                 </form>
                 </li>
             {% else %}
-                <li><a class="nav-link" href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span>Login</a>
-                </li>
-                <li><a class="nav-link" href="{% url 'register' %}"><span class="glyphicon glyphicon-log-in"></span>Sign Up</a>
-                </li>
+                <li--><a class="nav-link" href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span>Login</a>
+                <!--mjl 7/29/2024 removing as we have a menu item for this already duplicative-->
+                <!--/li-->
+                <!--li><a class="nav-link" href="{% url 'register' %}"><span class="glyphicon glyphicon-log-in"></span>Sign Up</a-->
+                <!--/li-->
             {% endif %}
         </ul>
 
