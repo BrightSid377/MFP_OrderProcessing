@@ -87,6 +87,10 @@ DATABASES = {
 }
 
 
+# mjl 7/30/2024 added to join registered user to customer table
+# https://learndjango.com/tutorials/django-best-practices-referencing-user-model
+# AUTH_USER_MODEL = "Customer.CustomUser"
+
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -138,3 +142,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+

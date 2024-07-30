@@ -26,12 +26,15 @@
                 </li> 
                 <li class="nav-item"> 
                     <a class="nav-link" href="{% url 'register' %}"> Sign Up Now</a> 
-                    <!--a class="nav-link" href="#">Sign Up</a -->
-                    <!--a class="nav-link" href="{% url 'order_list' %}">All Orders</a -->
                 </li> 
                 <!--li class="nav-item"--> 
                     <!--a class="nav-link" href="#">Log In</a-->
                 <!--/li-->
+                {% if user.is_authenticated %} 
+                <li><a class="nav-link" href="{% url 'order_list' %}">My Orders</a></li> 
+                <li><a class="nav-link" href="{% url 'order_create' %}">New Order</a></li> 
+                {% endif %} 
+                
             </ul>
         </div>
 
@@ -50,6 +53,7 @@
                 <!--/li-->
                 <!--li><a class="nav-link" href="{% url 'register' %}"><span class="glyphicon glyphicon-log-in"></span>Sign Up</a-->
                 <!--/li-->
+               
             {% endif %}
         </ul>
 

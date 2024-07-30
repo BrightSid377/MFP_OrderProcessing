@@ -6,6 +6,9 @@ import uuid
 
 class Customer(models.Model):
     customer_id = models.AutoField(primary_key=True)
+    # mjl 7/30/2024 need to connect registered user to customer account trying foreign key
+    # https://docs.djangoproject.com/en/5.0/topics/auth/customizing/#extending-user
+    # user_id = models.OneToOneField('User', on_delete=models.CASCADE)
     # demographics_id = models.ForeignKey('Demographics', on_delete=models.CASCADE)
     customer_first_name = models.CharField(max_length=50)
     customer_last_name = models.CharField(max_length=50)
@@ -31,17 +34,23 @@ class Customer(models.Model):
 class OrdersHeader(models.Model):
     order_id = models.AutoField(primary_key=True)
     customer_id = models.ForeignKey('Customer', on_delete=models.CASCADE)
+
     pickup_location_id = models.ForeignKey('PickupLocation', on_delete=models.CASCADE)
     order_date = models.DateField()
-    order_fill_or_shop = models.CharField(max_length=20)
+    # order_fill_or_shop = models.CharField(max_length=20)  mjl 7/30/2024 updating to list
+    FILL_SHOP_CHOICES = [
+        ('fill','fill'),
+        ('shop','shop'),
+    ]
+    order_fill_or_shop = models.CharField(max_length=4, choices=FILL_SHOP_CHOICES)
 
     IS_BAG_REQUIRED_CHOICES = [
         ('Y', 'Yes'),
         ('N', 'No'),
     ]
     is_bag_required = models.CharField(max_length=1, choices=IS_BAG_REQUIRED_CHOICES)
-    order_fulfillment_date = models.DateField()
-
+    # mjl 7/30/2024 adding null allowed so customer can enter new order without fulfillment date
+    order_fulfillment_date = models.DateField(blank=True, null=True)
     ORDER_PICKUP_STATUS_CHOICES = [
         ('Y', 'Yes'),
         ('N', 'No'),
@@ -50,7 +59,6 @@ class OrdersHeader(models.Model):
     order_notification_date_1st = models.DateField(blank=True, null=True)
     order_notification_date_2nd = models.DateField(blank=True, null=True)
     order_notification_date_3rd = models.DateField(blank=True, null=True)
-
     ORDER_DIAPERS_CHOICES = [
         ('Y', 'Yes'),
         ('N', 'No'),
@@ -264,15 +272,25 @@ class Comment(models.Model):
             "comment_comment": self.comment_comment
         }
 
-    class OrderComment(models.Model):
-        order_comment_id = models.AutoField(primary_key=True)
-        comment_id = models.ForeignKey('Comment', on_delete=models.CASCADE, null=True)
-        order_comment_comment = models.TextField(null=True, blank=True)
-        comment_type = models.CharField(max_length=20, null=True, blank=True)
+class OrderComment(models.Model):
+    order_comment_id = models.AutoField(primary_key=True)
+    comment_id = models.ForeignKey('Comment', on_delete=models.CASCADE, null=True)
+    order_comment_comment = models.TextField(null=True, blank=True)
+    comment_type = models.CharField(max_length=20, null=True, blank=True)
 
-        def get_full_comment_info(self):
-            return {
-                "order_comment_id": self.order_comment_id,
-                "comment_comment": self.order_comment_comment,
-                "comment_type": self.comment_type,
+    def get_full_comment_info(self):
+        return {
+            "order_comment_id": self.order_comment_id,
+            "comment_comment": self.order_comment_comment,
+            "comment_type": self.comment_type,
             }
+
+# mjl 7/30/2024 trying to get Order form to allow for selection of
+# customer when posting
+# https://www.educba.com/django-foreign-key/
+# from django import forms
+# from .models import Customer
+# class Valueform(forms.ModelForm):
+#     class Meta:
+#         model = Customer
+#         fields = "__all__"

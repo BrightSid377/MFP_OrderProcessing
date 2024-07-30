@@ -1,3 +1,5 @@
+<!DOCTYPE html> 
+<html lang="en">
 {% extends "catalog/base.html" %}
  
 {% block content %} 
@@ -6,7 +8,7 @@
   <ul> 
     {% for order in order_list %}
       <li> 
-        <a href="#">{{ order.order_id }}</a> ({{order.order_pickup_status}})
+        <a href="#">{{ order.order_id }}</a> ({{order.order_date}} {{pickuplocation.location_name}} {{order.fulfillment_date}})
       </li> 
     {% endfor %} 
   </ul> 

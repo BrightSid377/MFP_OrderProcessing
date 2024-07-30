@@ -1,14 +1,17 @@
 {% extends 'catalog/base.html' %}
- 
+{% load static %}  <!-- mjl 7/30/2024 looking to add image to home page -->
+
 {% block content %} 
   <h1>Feeding More Than Stomachs: Feeding Student Success and Well Being</h1>
   <p></p>
-  <p>The goal of the Food Pantry is to provide students and faculty of UNO 
-      and neighboring campuses with the food and disposable items they need, 
+  <p>The goal of the Food Pantry is to provide students and faculty of UNO
+      and neighboring campuses with the food and disposable items they need,
       when they need it.</p>
+  <img src="{% static 'MFP_HomePage.jpg' %}">  <!-- mjl 7/30/2024 added image -->
+  <p></p>
   <p></p>
   <p>Database Statistics:</p>
-  <ul> 
+  <ul>
     <li><strong>Customers:</strong> {{ num_customers }}</li>
     <!--li><strong>Copies:</strong> {{ num_instances }}</li-->
     <!--li><strong>Copies available:</strong> {{ num_instances_available }}</li-->

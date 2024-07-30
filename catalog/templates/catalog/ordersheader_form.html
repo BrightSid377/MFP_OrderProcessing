@@ -1,0 +1,18 @@
+{% extends "catalog/base.html" %} 
+{% load crispy_forms_tags %} 
+{% load crispy_forms_filters %} 
+ 
+{% block content %} 
+    {% if perms.catalog.create_order or perms.catalog.edit_order %}  <!-- should this be OrderHeader-->
+        <form action="" method="POST"> 
+            <!--{{ from.as_p }}  mjl 7/30/2024 trying to add customer to order form -->
+            {% csrf_token %} 
+            {{ form|crispy }} 
+ 
+            <input type="submit" value="Submit"/> 
+        </form> 
+    {% else %} 
+        You do not have permission to access this feature 
+        <a href="{% url 'index' %}">About Us</a> 
+    {% endif %} 
+{% endblock %} 
