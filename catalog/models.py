@@ -6,7 +6,7 @@ import uuid
 
 class Customer(models.Model):
     customer_id = models.AutoField(primary_key=True)
-    demographics_id = models.ForeignKey('Demographics', on_delete=models.CASCADE)
+    # demographics_id = models.ForeignKey('Demographics', on_delete=models.CASCADE)
     customer_first_name = models.CharField(max_length=50)
     customer_last_name = models.CharField(max_length=50)
     customer_email = models.EmailField(unique=True)
@@ -83,8 +83,9 @@ class OrdersHeader(models.Model):
 class Demographics(models.Model):
     demographics_id = models.AutoField(primary_key=True)
     customer_id = models.ForeignKey('Customer', on_delete=models.CASCADE)
-    dependent_id = models.ForeignKey('Dependent', on_delete=models.CASCADE)
-    comment_id = models.ForeignKey('Comment', on_delete=models.CASCADE)
+    # dependent_id = models.ForeignKey('Dependent', on_delete=models.CASCADE)
+    # comment_id = models.ForeignKey('Comment', on_delete=models.CASCADE)
+    # Changes to our ERD design made these foreign keys not necessary
     customer_secondary_email = models.EmailField(unique=True, null=True)
     customer_NUID = models.CharField(max_length=20, null=True, default='0')
 
@@ -243,6 +244,7 @@ class Staff(models.Model):
 
 class Dependent(models.Model):
     dependent_id = models.AutoField(primary_key=True)
+    demographics_id = models.ForeignKey('Demographics', on_delete=models.CASCADE, null=True)
     dependent_age = models.IntegerField(null=True, blank=True)
 
     def get_full_dependent_info(self):
@@ -253,6 +255,7 @@ class Dependent(models.Model):
 
 class Comment(models.Model):
     comment_id = models.AutoField(primary_key=True)
+    demographics_id = models.ForeignKey('Demographics', on_delete=models.CASCADE, null=True)
     comment_comment = models.TextField(null=True, blank=True)
 
     def get_full_comment_info(self):
