@@ -12,7 +12,9 @@ def register(request):
             form.save()
             # get the new user info and set the group for this user to LibraryMember
             user = User.objects.get(username=uname)
-            lib_group = Group.objects.get(name='LibraryMember')
+            # mjl 7/29/2024  updated from LibraryrMember to prototypes Customer group for default security
+            # this registration attempt was otherwise throwing an error as user group LibraryMember did not exist
+            lib_group = Group.objects.get(name='Customer')
             user.groups.add(lib_group)
             user.save()
             return redirect('login')
