@@ -12,10 +12,14 @@ urlpatterns = [
 # mjl 7/31/2024 adding rows here for new staff and products page
     path('products/create/', views.ProductsCreate.as_view(), name='products_create'),
     path('products/<int:pk>/update/', views.ProductsUpdate.as_view(), name='products_update'),
+    path('products/<int:pk>/delete/', views.products_delete, name='products_delete'),
+    path('catalog/products_list/', views.ProductsListView.as_view(), name='products_list'),
 
     path('staff/create/', views.StaffCreate.as_view(), name='staff_create'),
     path('staff/<int:pk>/update/', views.StaffUpdate.as_view(), name='staff_update'),
-# ar 7/31 adding url route for profile page
-    path('profile/', views.profile, name='profile'),
     path('staff/<int:pk>/delete/', views.staff_delete, name='staff_delete'),
+    path('catalog/staff_list/', views.StaffListView.as_view(), name='staff_list'),
+
+    # ar 7/31 adding url route for profile page
+    path('profile/', views.profile, name='profile'),
 ]

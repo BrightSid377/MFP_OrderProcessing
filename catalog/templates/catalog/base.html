@@ -31,9 +31,9 @@
                     <!--a class="nav-link" href="#">Log In</a-->
                 <!--/li-->
                 {% if user.is_authenticated %} 
+                <li><a class="nav-link" href="{% url 'profile' %}">Profile</a></li>
                 <li><a class="nav-link" href="{% url 'order_list' %}">My Orders</a></li> 
                 <li><a class="nav-link" href="{% url 'order_create' %}">New Order</a></li>
-                    <li><a href="{% url 'profile' %}">Profile</a></li>
                 {% endif %} 
                 
                 {% if user.is_superuser %} 

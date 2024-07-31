@@ -75,6 +75,12 @@ class ProductsCreate(CreateView):
     def get_success_url(self):
         return reverse('order_list')  # redirects customer to page after commiting change
 
+class ProductsListView(LoginRequiredMixin,generic.ListView):
+    model = Products
+    template_name = 'catalog/products_list.html'
+    paginate_by = 10
+
+
 class StaffUpdate(UpdateView):
     model = Staff
     fields = ['staff_first_name', 'staff_last_name', 'staff_position']
@@ -86,6 +92,11 @@ class StaffCreate(CreateView):
     fields = ['staff_first_name', 'staff_last_name', 'staff_position']
     def get_success_url(self):
         return reverse('order_list')  # redirects customer to page after commiting change
+
+class StaffListView(LoginRequiredMixin,generic.ListView):
+    model = Staff
+    template_name = 'catalog/staff_list.html'
+    paginate_by = 10
 
 # mjl 7/30/2024 trying to allow customer to be chosen during order entry
 # https://www.educba.com/django-foreign-key/
