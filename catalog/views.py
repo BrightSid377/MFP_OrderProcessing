@@ -1,4 +1,4 @@
-from .models import (Customer, OrdersHeader)
+from .models import (Customer, OrdersHeader,Products, Staff)
 #, Valueform)
 from django.shortcuts import render, reverse, resolve_url
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -55,6 +55,33 @@ class OrderUpdate(UpdateView):
         return reverse('order_list') # redirects customer to page after commiting change
     # should have this redirect to order details to continue entries
 
+
+# mjl 7/31/2024 adding staff and product entry views
+
+
+class ProductsUpdate(UpdateView):
+    model = Products
+    fields = ['product_name', 'product_description', 'product_availability','product_quantity']
+    def get_success_url(self):
+        return reverse('order_list') # redirects customer to page after commiting change
+
+class ProductsCreate(CreateView):
+    model = Products
+    fields = ['product_name', 'product_description', 'product_availability','product_quantity']
+    def get_success_url(self):
+        return reverse('order_list')  # redirects customer to page after commiting change
+
+class StaffUpdate(UpdateView):
+    model = Staff
+    fields = ['staff_first_name', 'staff_last_name', 'staff_position']
+    def get_success_url(self):
+        return reverse('order_list')  # redirects customer to page after commiting change
+
+class StaffCreate(CreateView):
+    model = Staff
+    fields = ['staff_first_name', 'staff_last_name', 'staff_position']
+    def get_success_url(self):
+        return reverse('order_list')  # redirects customer to page after commiting change
 
 # mjl 7/30/2024 trying to allow customer to be chosen during order entry
 # https://www.educba.com/django-foreign-key/
