@@ -17,4 +17,5 @@ urlpatterns = [
     path('staff/<int:pk>/update/', views.StaffUpdate.as_view(), name='staff_update'),
 # ar 7/31 adding url route for profile page
     path('profile/', views.profile, name='profile'),
+    path('staff/<int:pk>/delete/', views.staff_delete, name='staff_delete'),
 ]

@@ -42,10 +42,12 @@
                     aria-expanded="false">Manager Menu</a> 
                 <ul class="dropdown-menu"> 
                 <li><a class="dropdown-item" href="{% url 'staff_create' %}">Add Staff</a></li> 
+                <li><a class="dropdown-item" href="{% url 'staff_list' %}">Edit Staff</a></li> 
                 <li><a class="dropdown-item" href="{% url 'products_create' %}">Add Product</a></li> 
+                <li><a class="dropdown-item" href="{% url 'products_list' %}">Edit Product</a></li> 
                 </ul> 
                 </li> 
-    {% endif %}
+                {% endif %}
             
             </ul>
         </div>

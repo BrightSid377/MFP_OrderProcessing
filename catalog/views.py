@@ -4,6 +4,9 @@ from django.shortcuts import render, reverse, resolve_url
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.shortcuts import redirect
+
 
 def index(request):
     """View function for home page of site."""
@@ -115,3 +118,22 @@ class StaffCreate(CreateView):
 def profile(request):
     user = request.user  # Get the current logged-in user
     return render(request, 'catalog/profile.html', {'user': user})
+# mjl 7/31/2024 adding delete features for staff and products
+def staff_delete(request, pk):
+    staff = get_object_or_404(Staff, pk=pk)
+    try:
+        staff.delete()
+        messages.success(request, (staff.staff_first_name + ' ' +
+                                   staff.staff_last_name +" has been deleted"))
+    except:
+        messages.success(request, (staff.staff_first_name + ' ' + staff.staff_last_name + ' cannot be deleted.'))
+    return redirect('order_list')
+
+def products_delete(request, pk):
+    staff = get_object_or_404(Products, pk=pk)
+    try:
+        products.delete()
+        messages.success(request, (Products.product_name +" has been deleted"))
+    except:
+        messages.success(request, (Products.product_name + ' cannot be deleted.'))
+    return redirect('order_list')

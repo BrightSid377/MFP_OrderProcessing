@@ -3,7 +3,7 @@
 {% load crispy_forms_filters %} 
  
 {% block content %} 
-    {% if perms.catalog.create_order or perms.catalog.edit_order %}  <!-- should this be OrderHeader-->
+    {% if perms.catalog.create_order or perms.catalog.edit_order %} 
         <form action="" method="POST"> 
             <!--{{ from.as_p }}  mjl 7/30/2024 trying to add customer to order form -->
             {% csrf_token %} 
