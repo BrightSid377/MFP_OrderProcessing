@@ -3,6 +3,7 @@ from .models import (Customer, OrdersHeader,Products, Staff)
 from django.shortcuts import render, reverse, resolve_url
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     """View function for home page of site."""
@@ -110,4 +111,7 @@ class StaffCreate(CreateView):
 #         post.save()
 #     return  render(request,'ordersheader_form_edit.html', {"form": form})
 
-
+@login_required
+def profile(request):
+    user = request.user  # Get the current logged-in user
+    return render(request, 'profile.html', {'user': user})

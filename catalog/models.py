@@ -1,8 +1,22 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse # used to generate URLs by reversing the URL patterns
 import uuid
 
 # Create your models here
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE, unique=True)
+    first_name = models.TextField(max_length=500, null=True, blank=True)
+    last_name = models.TextField(max_length=500, null=True, blank=True)
+    email = models.TextField(max_length=500, null=True, blank=True)
+    bio = models.TextField(max_length=500, null=True, blank=True)
+    image = models.ImageField(upload_to="images/profile",
+                              default="images/profile/default.png", null=True)
+    private = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.user)
 
 class Customer(models.Model):
     customer_id = models.AutoField(primary_key=True)
