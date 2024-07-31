@@ -1,11 +1,16 @@
-from .models import (Customer, OrdersHeader,Products, Staff)
+from .models import (Customer, OrdersHeader,Products, Staff, User)
 #, Valueform)
-from django.shortcuts import render, reverse, resolve_url
+from django.shortcuts import render, reverse, resolve_url, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import redirect
+
+# mjl 7/31/2024 added for email functionality
+# https://www.geeksforgeeks.org/setup-sending-email-in-django-project/
+from django.conf import settings
+from django.core.mail import send_mail
 
 
 def index(request):
@@ -141,10 +146,31 @@ def staff_delete(request, pk):
     return redirect('order_list')
 
 def products_delete(request, pk):
-    staff = get_object_or_404(Products, pk=pk)
+    products = get_object_or_404(Products, pk=pk)
     try:
         products.delete()
         messages.success(request, (Products.product_name +" has been deleted"))
     except:
         messages.success(request, (Products.product_name + ' cannot be deleted.'))
     return redirect('order_list')
+
+# mjl 7/31/2024 looking to send emails based on fulfillment date
+# def send_customer_notification():
+#     subject = 'Maverick Food Pantry - Order Ready'
+#     message = f'Hi {User.first_name}, your requested Order is ready for pickup.'
+#     email_from = settings.EMAIL_HOST_USER
+#     recipient_list = 'mjl07734@gmail.com' #[User.email, ]
+#     send_mail(subject, message, email_from, recipient_list)
+
+# https://stackoverflow.com/questions/59406326/django-sending-email-using-signals
+#
+# from .models import Booking
+#
+# @receiver(post_save, sender=Booking)
+# def new_booking(sender, instance, **kwargs):
+# if instance.firstname:
+#     firstname = (instance.firstname)
+#     email = (instance.email)
+#     subject = (instance.service)
+#     send_mail(firstname, subject, email,
+#               ['cmadiam@abc.com'], fail_silently=False)
