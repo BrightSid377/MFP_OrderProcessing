@@ -1,0 +1,16 @@
+{% extends "catalog/base.html" %}
+{% load static %} 
+<!doctype html> 
+
+ {% block content %}
+<html lang="en">     
+<body>
+    <h1>User Profile</h1>
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>First Name:</strong> {{ user.first_name }}</p>
+    <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+    <!-- Add more user attributes as needed -->
+</body>
+</html>
+{% endblock %} 

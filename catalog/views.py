@@ -114,4 +114,4 @@ class StaffCreate(CreateView):
 @login_required
 def profile(request):
     user = request.user  # Get the current logged-in user
-    return render(request, 'profile.html', {'user': user})
+    return render(request, 'catalog/profile.html', {'user': user})
