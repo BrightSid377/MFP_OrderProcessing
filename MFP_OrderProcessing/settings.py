@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'register.apps.RegisterConfig',
     'crispy_forms',
     'crispy_bootstrap5',
+    'MFP_OrderProcessing',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'MFP_OrderProcessing.middleware.DemographicsMiddleware',
 ]
 
 ROOT_URLCONF = 'MFP_OrderProcessing.urls'

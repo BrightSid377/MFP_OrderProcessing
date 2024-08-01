@@ -27,4 +27,7 @@ urlpatterns = [
     path('orderline/create/', views.OrderLineCreate.as_view(), name='orderline_create'),
     path('orderline/<int:pk>/update/', views.OrderLineUpdate.as_view(), name='orderline_update'),
 
+    #ar 8/1 adding demogrpahics form view
+    path('demographics_form/', views.demographics_form, name='demographics_form')
+
 ]

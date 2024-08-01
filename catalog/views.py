@@ -6,6 +6,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import redirect
+from .forms import DemographicsForm
 
 # mjl 7/31/2024 added for email functionality
 # https://www.geeksforgeeks.org/setup-sending-email-in-django-project/
@@ -197,3 +198,24 @@ def products_delete(request, pk):
 #     subject = (instance.service)
 #     send_mail(firstname, subject, email,
 #               ['cmadiam@abc.com'], fail_silently=False)
+
+
+@login_required
+def demographics_form(request):
+    if request.method == 'POST':
+        form = DemographicsForm(request.POST)
+        if form.is_valid():
+            demographics = form.save(commit=False)
+            try:
+                customer = Customer.objects.get(user=request.user)
+                demographics.customer_id = customer
+                demographics.save()
+                messages.success(request, 'Demographics information submitted successfully!')
+                return redirect('index')  # Adjust redirect as needed
+            except Customer.DoesNotExist:
+                messages.error(request, 'Customer record not found for the current user.')
+                return render(request, 'error.html', {'message': 'Customer record not found for the current user.'})
+    else:
+        form = DemographicsForm()
+
+    return render(request, 'demographics_form.html', {'form': form})

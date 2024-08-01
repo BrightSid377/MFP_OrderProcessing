@@ -22,7 +22,7 @@ class Customer(models.Model):
     customer_id = models.AutoField(primary_key=True)
     # mjl 7/30/2024 need to connect registered user to customer account trying foreign key
     # https://docs.djangoproject.com/en/5.0/topics/auth/customizing/#extending-user
-    # user_id = models.OneToOneField('User', on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     # demographics_id = models.ForeignKey('Demographics', on_delete=models.CASCADE)
     customer_first_name = models.CharField(max_length=50)
     customer_last_name = models.CharField(max_length=50)
@@ -103,7 +103,7 @@ class OrdersHeader(models.Model):
 
 class Demographics(models.Model):
     demographics_id = models.AutoField(primary_key=True)
-    customer_id = models.ForeignKey('Customer', on_delete=models.CASCADE)
+    customer_id = models.ForeignKey('Customer', on_delete=models.CASCADE, null=True, blank=True)
     # dependent_id = models.ForeignKey('Dependent', on_delete=models.CASCADE)
     # comment_id = models.ForeignKey('Comment', on_delete=models.CASCADE)
     # Changes to our ERD design made these foreign keys not necessary
