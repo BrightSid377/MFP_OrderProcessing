@@ -3,6 +3,7 @@
 {% load crispy_forms_filters %} 
  
 {% block content %} 
+    <!-- mjl 7/31/2024 this if logic seems to not allow Customer Group users accees -->
     <!--% if perms.catalog.create_orderline or perms.catalog.edit_orderline %} --> 
         <form action="{% url 'orderline_create' %}" method="POST"> 
         <!--field_order = ['order_id','order_line_number','product_id','order_quantity_requested','order_notes']-->

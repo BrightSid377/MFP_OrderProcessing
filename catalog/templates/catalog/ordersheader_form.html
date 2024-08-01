@@ -3,7 +3,8 @@
 {% load crispy_forms_filters %} 
  
 {% block content %} 
-    <!--% if perms.catalog.create_order or perms.catalog.edit_order %}--> 
+   <!-- mjl 7/31/2024 this if logic seems to not allow Customer Group users accees -->
+   <!--% if perms.catalog.create_order or perms.catalog.edit_order %}--> 
         <form action="{% url 'orderline_create' %}" method="POST"> 
             <!--{{ from.as_p }}  mjl 7/30/2024 trying to add customer to order form -->
             {% csrf_token %} 
