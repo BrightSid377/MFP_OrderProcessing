@@ -1,4 +1,4 @@
-from .models import (Customer, OrdersHeader,Products, Staff, User)
+from .models import (Customer, OrdersHeader,Products, Staff, User, OrderLine   )
 #, Valueform)
 from django.shortcuts import render, reverse, resolve_url, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -9,6 +9,7 @@ from django.shortcuts import redirect
 
 # mjl 7/31/2024 added for email functionality
 # https://www.geeksforgeeks.org/setup-sending-email-in-django-project/
+# https://www.youtube.com/watch?v=5Iumyy3d2eA
 from django.conf import settings
 from django.core.mail import send_mail
 
@@ -63,6 +64,28 @@ class OrderUpdate(UpdateView):
     def get_success_url(self):
         return reverse('order_list') # redirects customer to page after commiting change
     # should have this redirect to order details to continue entries
+
+
+# mjl 7/31/2024 create orderline page
+
+class OrderLineCreate(CreateView):
+    model = OrderLine
+    fields = ['order_line_number', 'order_quantity_requested', 'order_notes','order_id','product_id']
+    def get_success_url(self):
+        return reverse('orderline_create')  # redirects customer to page after commiting change
+    # should have this redirect to order details to continue entries
+
+class OrderLineUpdate(UpdateView):
+    model = OrderLine
+    fields = ['order_line_number', 'order_quantity_requested', 'order_notes','order_id','product_id']
+    def get_success_url(self):
+        return reverse('orderline_create') # redirects customer to page after commiting change
+    # should have this redirect to order details to continue entries
+
+
+
+
+
 
 
 # mjl 7/31/2024 adding staff and product entry views

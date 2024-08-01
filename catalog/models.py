@@ -218,6 +218,15 @@ class OrderLine(models.Model):
     order_quantity_requested = models.CharField(max_length=100)
     order_notes = models.TextField(null=True, blank=True)
 
+    # class Meta:  # mjl 7/31/2024 hopefully sorts the columns dif when displayed by form
+    #         fields_order = [
+    #             'order_id',
+    #             'order_line_number',
+    #             'product_id',
+    #             'order_quantity_requested',
+    #             'order_notes'
+    #             ]
+
     def get_full_orderline_info(self):
         return {
             "order_id": self.order_id,
@@ -226,6 +235,9 @@ class OrderLine(models.Model):
             "order_quantity_requested": self.order_quantity_requested,
             "order_notes": self.order_notes
         }
+
+
+
 
 class Products(models.Model):
     product_id = models.AutoField(primary_key=True)

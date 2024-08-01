@@ -3,16 +3,19 @@
 {% load crispy_forms_filters %} 
  
 {% block content %} 
-    <!--% if perms.catalog.create_order or perms.catalog.edit_order %}--> 
+    <!--% if perms.catalog.create_orderline or perms.catalog.edit_orderline %} --> 
         <form action="{% url 'orderline_create' %}" method="POST"> 
-            <!--{{ from.as_p }}  mjl 7/30/2024 trying to add customer to order form -->
+        <!--field_order = ['order_id','order_line_number','product_id','order_quantity_requested','order_notes']-->
+            <!--{{ from.as_p }}  mjl 7/30/2024 used in online searches as paragraph formatting -->
             {% csrf_token %} 
             {{ form|crispy }} 
- 
+         
             <input type="submit" value="Submit"/> 
         </form> 
     <!--% else %} 
         You do not have permission to access this feature 
         <a href="{% url 'index' %}">About Us</a> 
-    % endif %} --> 
+    % endif %} -->
+    <p></p>
+    <a href="{% url 'order_list' %}">Done</a> 
 {% endblock %} 

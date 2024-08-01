@@ -22,4 +22,9 @@ urlpatterns = [
 
     # ar 7/31 adding url route for profile page
     path('profile/', views.profile, name='profile'),
+
+# mjl 7/31/2024 working on orderline page
+    path('orderline/create/', views.OrderLineCreate.as_view(), name='orderline_create'),
+    path('orderline/<int:pk>/update/', views.OrderLineUpdate.as_view(), name='orderline_update'),
+
 ]
