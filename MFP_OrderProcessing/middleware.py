@@ -13,7 +13,7 @@ class DemographicsMiddleware(MiddlewareMixin):
                 # check to see if the authenticated customer has filled out their demographics information
                 if Demographics.objects.filter(customer_id=request.user.pk).exists():
                     # Avoid redirect loop by excluding the demographics and logout paths
-                    if request.path not in [reverse('demographics'), reverse('logout')]:
+                    if request.path not in [reverse('demographics_form'), reverse('logout')]:
                         return redirect('demographics_form')
             except Customer.DoesNotExist:
                 # return redirect('register/')

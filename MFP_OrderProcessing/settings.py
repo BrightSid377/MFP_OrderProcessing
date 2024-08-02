@@ -53,7 +53,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'MFP_OrderProcessing.middleware.DemographicsMiddleware',
+    # ar 8/2
+    # - Added this to link to the middleware code in the middleware.py file to ensure users have filled out
+    # a demographics form to be able to proceed to the rest of the site.
+    # - It's currently commented out due to modeling errors causing the site to not link a user creation to a customer
+    # and demographics profile causing an indefinite loop back to the demographics form when logging into the site.
+    #  will be added back once the modeling error is resolved.
+    # 'MFP_OrderProcessing.middleware.DemographicsMiddleware',
 ]
 
 ROOT_URLCONF = 'MFP_OrderProcessing.urls'
