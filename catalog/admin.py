@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Customer, OrdersHeader, Demographics, PickupLocation, OrderLine, Products, Staff, Dependent, Comment
+from .models import OrdersHeader, Demographics, PickupLocation, OrderLine, Products, Staff, Dependent, Comment
 
 # mjl 7/30/2024 ======= new =======
 # https://docs.djangoproject.com/en/5.0/topics/auth/customizing/#extending-user
@@ -23,7 +23,7 @@ from .models import Customer, OrdersHeader, Demographics, PickupLocation, OrderL
 
 
 # Register your models here
-admin.site.register(Customer)
+# admin.site.register(Customer)
 admin.site.register(OrdersHeader)
 admin.site.register(Demographics)
 admin.site.register(PickupLocation)

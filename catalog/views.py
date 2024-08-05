@@ -1,4 +1,4 @@
-from .models import (Customer, OrdersHeader,Products, Staff, User, OrderLine   )
+from .models import ( OrdersHeader,Products, Staff, User, OrderLine   )
 #, Valueform)
 from django.shortcuts import render, reverse, resolve_url, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -17,7 +17,7 @@ from django.core.mail import send_mail
 
 def index(request):
     """View function for home page of site."""
-    num_customers = Customer.objects.all().count()
+    num_customers = User.objects.all().count()
 
     # num_instances = BookInstance.objects.all().count()
     # Available books (status = 'a')
@@ -54,7 +54,7 @@ class OrdersListView(LoginRequiredMixin,generic.ListView):
 
 class OrderCreate(CreateView):
     model = OrdersHeader
-    fields = ['customer_id','pickup_location_id','order_date', 'order_fill_or_shop', 'is_bag_required', 'order_diapers','order_parent_supplies']
+    fields = ['user_id','pickup_location_id','order_date', 'order_fill_or_shop', 'is_bag_required', 'order_diapers','order_parent_supplies']
     def get_success_url(self):
         return reverse('order_list')  # redirects customer to page after commiting change
     # should have this redirect to order details to continue entries
@@ -207,12 +207,12 @@ def demographics_form(request):
         if form.is_valid():
             demographics = form.save(commit=False)
             try:
-                customer = Customer.objects.get(user=request.user)
+                customer = User.objects.get(user=request.user)
                 demographics.customer_id = customer
                 demographics.save()
                 messages.success(request, 'Demographics information submitted successfully!')
                 return redirect('index')  # Adjust redirect as needed
-            except Customer.DoesNotExist:
+            except User.DoesNotExist:
                 messages.error(request, 'Customer record not found for the current user.')
                 return render(request, 'error.html', {'message': 'Customer record not found for the current user.'})
     else:
