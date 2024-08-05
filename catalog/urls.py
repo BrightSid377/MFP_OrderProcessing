@@ -22,6 +22,8 @@ urlpatterns = [
 
     # ar 7/31 adding url route for profile page
     path('profile/', views.profile, name='profile'),
+    #ar 8/5/2024 adding edit_profile view
+    path('profile/edit/', views.edit_profile, name='edit_profile'),
 
 # mjl 7/31/2024 working on orderline page
     path('orderline/create/', views.OrderLineCreate.as_view(), name='orderline_create'),

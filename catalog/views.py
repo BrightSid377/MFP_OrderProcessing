@@ -219,3 +219,38 @@ def demographics_form(request):
         form = DemographicsForm()
 
     return render(request, 'demographics_form.html', {'form': form})
+
+#ar 8/05/2024 adding profile edit view
+
+from .forms import UserForm, ProfileForm, DemographicsForm
+from .models import Profile, Demographics
+
+@login_required
+def edit_profile(request):
+    user = request.user
+    profile, created = Profile.objects.get_or_create(user=user)
+    demographics, created = Demographics.objects.get_or_create(user_id=user)
+
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=user)
+        profile_form = ProfileForm(request.POST, request.FILES, instance=profile)
+        demographics_form = DemographicsForm(request.POST, instance=demographics)
+
+        if user_form.is_valid() and profile_form.is_valid() and demographics_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            demographics_form.save()
+            messages.success(request, 'Your profile was successfully updated!')
+            return redirect('profile')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        user_form = UserForm(instance=user)
+        profile_form = ProfileForm(instance=profile)
+        demographics_form = DemographicsForm(instance=demographics)
+
+    return render(request, 'catalog/edit_profile.html', {
+        'user_form': user_form,
+        'profile_form': profile_form,
+        'demographics_form': demographics_form
+    })
