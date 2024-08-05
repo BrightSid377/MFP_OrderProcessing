@@ -157,7 +157,15 @@ class StaffListView(LoginRequiredMixin,generic.ListView):
 @login_required
 def profile(request):
     user = request.user  # Get the current logged-in user
-    return render(request, 'catalog/profile.html', {'user': user})
+    profile = get_object_or_404(Profile, user=user)
+    demographics = get_object_or_404(Demographics, user_id=user)
+
+    context = {
+        'user': user,
+        'profile': profile,
+        'demographics': demographics,
+    }
+    return render(request, 'catalog/profile.html', context)
 # mjl 7/31/2024 adding delete features for staff and products
 def staff_delete(request, pk):
     staff = get_object_or_404(Staff, pk=pk)
