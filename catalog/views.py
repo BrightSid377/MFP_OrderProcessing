@@ -211,7 +211,7 @@ def products_delete(request, pk):
 @login_required
 def demographics_form(request):
     if request.method == 'POST':
-        form = DemographicsForm(request.POST, user_id=request.user.id)
+        form = DemographicsForm(request.POST)
         if form.is_valid():
             demographics = form.save(commit=False)
             demographics.user = request.user  # Ensure the user is set correctly
