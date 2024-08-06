@@ -157,7 +157,7 @@ class StaffListView(LoginRequiredMixin,generic.ListView):
 @login_required
 def profile(request):
     user = request.user  # Get the current logged-in user
-    profile = get_object_or_404(Profile, user=user)
+    profile, created = Profile.objects.get_or_create(user=user)
     demographics = get_object_or_404(Demographics, user_id=user)
 
     context = {
