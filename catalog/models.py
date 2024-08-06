@@ -334,7 +334,7 @@ class Order(models.Model):
     ]
 
     order_id = models.AutoField(primary_key=True)
-    status = models.CharField(max_length=10, choices=ORDER_STATUS_CHOICES, default=PACKING)
+    status = models.CharField(max_length=20, choices=ORDER_STATUS_CHOICES, default=PACKING)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
 

@@ -28,15 +28,3 @@ def register(request):
 
     return render(request, "register.html", {"form": form})
 
-def orders(request):
-    packing_orders = Order.objects.filter(status=Order.PACKING)
-    current_orders = Order.objects.filter(status=Order.PICKUP)
-    old_orders = Order.objects.filter(status=Order.RETURNS)
-
-    context = {
-        'packing_orders': packing_orders,
-        'current_orders': current_orders,
-        'old_orders': old_orders,
-    }
-
-    return render(request, 'orders.html', context)

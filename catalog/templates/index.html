@@ -10,12 +10,18 @@
   <img src="{% static 'MFP_HomePage.jpg' %}">  <!-- mjl 7/30/2024 added image -->
   <p></p>
   <p></p>
-  <p>Database Statistics:</p>
-  <ul>
-    <li><strong>Customers:</strong> {{ num_customers }}</li>
-    <!--li><strong>Copies:</strong> {{ num_instances }}</li-->
-    <!--li><strong>Copies available:</strong> {{ num_instances_available }}</li-->
-    <!--li><strong>Authors:</strong> {{ num_authors }}</li-->
-  </ul>
+{% if user.is_staff or user.is_superuser %}
+  <p>
+    <a href="{% url 'orders' %}" class="btn btn-primary">View Order Fulfillment</a>
+  </p>
+  <p></p>
+    <p>Database Statistics:</p>
+    <ul>
+      <li><strong>Customers:</strong> {{ num_customers }}</li>
+      <!--li><strong>Copies:</strong> {{ num_instances }}</li-->
+      <!--li><strong>Copies available:</strong> {{ num_instances_available }}</li-->
+      <!--li><strong>Authors:</strong> {{ num_authors }}</li-->
+    </ul>
     <p>You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}.</p>
-{% endblock %} 
+  {% endif %}
+{% endblock %}

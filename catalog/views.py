@@ -1,4 +1,4 @@
-from .models import ( OrdersHeader,Products, Staff, User, OrderLine   )
+from .models import (OrdersHeader,Products, Staff, User, OrderLine, Order)
 #, Valueform)
 from django.shortcuts import render, reverse, resolve_url, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -262,3 +262,16 @@ def edit_profile(request):
         'profile_form': profile_form,
         'demographics_form': demographics_form
     })
+
+def orders(request):
+    packing_orders = Order.objects.filter(status=Order.PACKING)
+    current_orders = Order.objects.filter(status=Order.PICKUP)
+    old_orders = Order.objects.filter(status=Order.RETURNS)
+
+    context = {
+        'packing_orders': packing_orders,
+        'current_orders': current_orders,
+        'old_orders': old_orders,
+    }
+
+    return render(request, 'orders.html', context)
