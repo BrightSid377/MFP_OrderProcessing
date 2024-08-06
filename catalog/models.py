@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
 from django.urls import reverse # used to generate URLs by reversing the URL patterns
 import uuid
 
@@ -319,3 +320,23 @@ class OrderComment(models.Model):
 #     class Meta:
 #         model = Customer
 #         fields = "__all__"
+
+# this is for the order fulfillment page
+class Order(models.Model):
+    PACKING = 'For Packing'
+    PICKUP = 'For Pickup'
+    RETURNS = 'Returns'
+
+    ORDER_STATUS_CHOICES = [
+        (PACKING, 'For Packing'),
+        (PICKUP, 'For Pickup'),
+        (RETURNS, 'Returns'),
+    ]
+
+    order_id = models.AutoField(primary_key=True)
+    status = models.CharField(max_length=10, choices=ORDER_STATUS_CHOICES, default=PACKING)
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Order {self.order_id} - {self.status}"

@@ -3,6 +3,9 @@ from .forms import RegisterForm
 from django.contrib.auth.models import User, Group
 
 
+
+
+
 # Create your views here.
 def register(request):
     if request.method == "POST":
@@ -24,3 +27,16 @@ def register(request):
         form = RegisterForm()
 
     return render(request, "register.html", {"form": form})
+
+def orders(request):
+    packing_orders = Order.objects.filter(status=Order.PACKING)
+    current_orders = Order.objects.filter(status=Order.PICKUP)
+    old_orders = Order.objects.filter(status=Order.RETURNS)
+
+    context = {
+        'packing_orders': packing_orders,
+        'current_orders': current_orders,
+        'old_orders': old_orders,
+    }
+
+    return render(request, 'orders.html', context)

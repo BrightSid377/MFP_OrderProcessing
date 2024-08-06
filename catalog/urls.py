@@ -30,6 +30,11 @@ urlpatterns = [
     path('orderline/<int:pk>/update/', views.OrderLineUpdate.as_view(), name='orderline_update'),
 
     #ar 8/1 adding demogrpahics form view
-    path('demographics_form/', views.demographics_form, name='demographics_form')
+    path('demographics_form/', views.demographics_form, name='demographics_form'),
+
+    #for order fulfillment page
+    path('orders/', views.orders, name='orders'),
+
+
 
 ]
