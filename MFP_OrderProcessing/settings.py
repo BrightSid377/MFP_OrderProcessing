@@ -59,7 +59,7 @@ MIDDLEWARE = [
     # - It's currently commented out due to modeling errors causing the site to not link a user creation to a customer
     # and demographics profile causing an indefinite loop back to the demographics form when logging into the site.
     #  will be added back once the modeling error is resolved.
-    # 'MFP_OrderProcessing.middleware.DemographicsMiddleware',
+    'MFP_OrderProcessing.middleware.DemographicsMiddleware',
 ]
 
 ROOT_URLCONF = 'MFP_OrderProcessing.urls'

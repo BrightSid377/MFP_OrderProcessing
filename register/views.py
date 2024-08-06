@@ -17,7 +17,7 @@ def register(request):
             user = User.objects.get(username=uname)
             # mjl 7/29/2024  updated from LibraryrMember to prototypes Customer group for default security
             # this registration attempt was otherwise throwing an error as user group LibraryMember did not exist
-            lib_group = Group.objects.get(name='Customer')
+            lib_group = Group.objects.get(name='User')
             user.groups.add(lib_group)
             user.save()
             return redirect('login')

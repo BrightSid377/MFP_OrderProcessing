@@ -211,18 +211,13 @@ def products_delete(request, pk):
 @login_required
 def demographics_form(request):
     if request.method == 'POST':
-        form = DemographicsForm(request.POST)
+        form = DemographicsForm(request.POST, user_id=request.user.id)
         if form.is_valid():
             demographics = form.save(commit=False)
-            try:
-                customer = User.objects.get(user=request.user)
-                demographics.customer_id = customer
-                demographics.save()
-                messages.success(request, 'Demographics information submitted successfully!')
-                return redirect('index')  # Adjust redirect as needed
-            except User.DoesNotExist:
-                messages.error(request, 'Customer record not found for the current user.')
-                return render(request, 'error.html', {'message': 'Customer record not found for the current user.'})
+            demographics.user = request.user  # Ensure the user is set correctly
+            demographics.save()
+            messages.success(request, 'Demographics information submitted successfully!')
+            return redirect('index')  # Adjust redirect as needed
     else:
         form = DemographicsForm()
 
