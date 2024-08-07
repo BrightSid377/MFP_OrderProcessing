@@ -11,6 +11,12 @@ class DemographicsForm(forms.ModelForm):
                   'user_ethnicity', 'user_age', 'user_gender_identity', 'user_marital_status',
                   'has_dependents', 'user_number_dependents', 'user_wgec', 'user_zip_code', 'user_allergies',
                   'user_household_size',]
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super(DemographicsForm, self).__init__(*args, **kwargs)
+        if user:
+            self.fields['user_id'].initial = user.id
+            self.fields['user_id'].widget = forms.HiddenInput()
 
 class UserForm(forms.ModelForm):
     class Meta:

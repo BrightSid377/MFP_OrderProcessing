@@ -211,7 +211,7 @@ def products_delete(request, pk):
 @login_required
 def demographics_form(request):
     if request.method == 'POST':
-        form = DemographicsForm(request.POST)
+        form = DemographicsForm(request.POST, user=request.user)
         if form.is_valid():
             demographics = form.save(commit=False)
             demographics.user = request.user  # Ensure the user is set correctly
@@ -219,7 +219,7 @@ def demographics_form(request):
             messages.success(request, 'Demographics information submitted successfully!')
             return redirect('index')  # Adjust redirect as needed
     else:
-        form = DemographicsForm()
+        form = DemographicsForm(user=request.user)
 
     return render(request, 'demographics_form.html', {'form': form})
 
