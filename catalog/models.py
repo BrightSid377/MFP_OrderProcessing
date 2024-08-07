@@ -108,7 +108,7 @@ class Demographics(models.Model):
     # dependent_id = models.ForeignKey('Dependent', on_delete=models.CASCADE)
     # comment_id = models.ForeignKey('Comment', on_delete=models.CASCADE)
     # Changes to our ERD design made these foreign keys not necessary
-    user_secondary_email = models.EmailField(unique=True, null=True)
+    user_secondary_email = models.EmailField(unique=True, null=True, default='None')
     user_NUID = models.CharField(max_length=20, null=True, default='0')
 
     USER_GRAD_CHOICES = [
@@ -116,7 +116,13 @@ class Demographics(models.Model):
         ('N', 'No'),
     ]
     user_grad = models.CharField(max_length=1, choices=USER_GRAD_CHOICES)
-    user_affiliation = models.CharField(max_length=50, null=True)
+
+    USER_AFFILIATION_CHOICES = [
+        ('1', 'UNO'),
+        ('2', 'UNMC'),
+        ('3', 'MCC'),
+    ]
+    user_affiliation = models.CharField(max_length=1, choices=USER_AFFILIATION_CHOICES, null=True)
 
     IS_INTERNATIONAL_STUDENT_CHOICES = [
         ('Y', 'Yes'),
@@ -137,16 +143,29 @@ class Demographics(models.Model):
         ('4', 'Senior'),
     ]
     user_class_standing = models.CharField(max_length=1, choices=USER_CLASS_STANDING_CHOICES, null=True)
-    user_occupation = models.CharField(max_length=50)
-    user_living_status = models.CharField(max_length=200)
-    user_transportation = models.CharField(max_length=150)
+
+    USER_LIVING_STATUS_CHOICES = [
+        ('1', 'Off-Campus - alone'),
+        ('2', 'Off-campus - With Family'),
+        ('3', 'On-Campus'),
+    ]
+    user_living_status = models.CharField(max_length=1, choices=USER_LIVING_STATUS_CHOICES, null=True)
+
+    USER_TRANSPORTATION_CHOICES = [
+        ('1', 'Walking'),
+        ('2', 'Public Transportation'),
+        ('3', 'Car'),
+    ]
+    user_transportation = models.CharField(max_length=1, choices=USER_TRANSPORTATION_CHOICES, null=True)
 
     USER_EMPLOYMENT_CHOICES = [
-        ('Y', 'Yes'),
-        ('N', 'No'),
+        ('1', 'Part-Time'),
+        ('2', 'Full-Time'),
+        ('3', 'Not Employed'),
+        ('4', 'Unable to Work')
     ]
     user_employment = models.CharField(max_length=1, choices=USER_EMPLOYMENT_CHOICES)
-    user_ethnicity = models.CharField(max_length=50)
+    user_ethnicity = models.CharField(max_length=100)
     user_age = models.CharField(max_length=2)
     user_gender_identity = models.CharField(max_length=100)
 
@@ -182,7 +201,6 @@ class Demographics(models.Model):
             "is_international_student": self.get_is_international_student_display(),
             "is_first_gen": self.get_is_first_gen_display(),
             "user_class_standing": self.get_user_class_standing_display(),
-            "user_occupation": self.user_occupation,
             "user_living_status": self.user_living_status,
             "user_transportation": self.user_transportation,
             "user_employment": self.get_user_employment_display(),
