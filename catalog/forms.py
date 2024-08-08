@@ -1,7 +1,8 @@
 from django import forms
-from .models import Demographics, Profile
+from .models import Demographics, Profile, OrderLine
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from .models import OrdersHeader, Products
 
 def validate_age(value):
     try:
@@ -48,3 +49,37 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['bio', 'image', 'private']
+
+class OrderCreateForm(forms.ModelForm):
+    products = forms.ModelMultipleChoiceField(
+        queryset=Products.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
+    quantities = forms.CharField(
+        widget=forms.HiddenInput(),  # Hide the field from the user
+        required=False
+    )
+    class Meta:
+        model = OrdersHeader
+        fields = ['pickup_location_id', 'order_date', 'order_fill_or_shop', 'is_bag_required', 'order_diapers', 'order_parent_supplies']
+    def clean(self):
+        cleaned_data = super().clean()
+        products = cleaned_data.get('products')
+        quantities = cleaned_data.get('quantities')
+        if products and not quantities:
+            raise forms.ValidationError("Quantities must be provided for selected products.")
+        # Parse quantities
+        if quantities:
+            quantities = quantities.split(',')
+            if len(products) != len(quantities):
+                raise forms.ValidationError("Mismatch between products and quantities.")
+        return cleaned_data
+
+class OrderLineForm(forms.ModelForm):
+    class Meta:
+        model = OrderLine
+        fields = ['product_id', 'order_line_number', 'order_quantity_requested', 'order_notes']
+        widgets = {
+            'order_notes': forms.Textarea(attrs={'rows': 3}),
+        }
