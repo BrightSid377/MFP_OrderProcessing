@@ -48,7 +48,7 @@ class Profile(models.Model):
     #     }
 class OrdersHeader(models.Model):
     order_id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     pickup_location_id = models.ForeignKey('PickupLocation', on_delete=models.CASCADE)
     order_date = models.DateField()
     # order_fill_or_shop = models.CharField(max_length=20)  mjl 7/30/2024 updating to list
@@ -255,7 +255,7 @@ class PickupLocation(models.Model):
         }
 
 class OrderLine(models.Model):
-    order_id = models.ForeignKey('OrdersHeader', on_delete=models.CASCADE)
+    order = models.ForeignKey('OrdersHeader', on_delete=models.CASCADE)
     product_id = models.ForeignKey('Products', on_delete=models.CASCADE)
     order_line_number = models.CharField(max_length=100)
     order_quantity_requested = models.CharField(max_length=100)

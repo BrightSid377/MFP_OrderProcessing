@@ -1,13 +1,13 @@
 from django.urls import path
 from . import views
-from .views import OrdersListView, OrderCreate, OrderDetailView, OrderLineCreateView
+from .views import OrdersListView, OrderCreate, OrderDetailView, OrderLineCreate
 
 urlpatterns = [
     path('', views.index, name='index'),
     path('orders/', OrdersListView.as_view(), name='order_list'),  # List all orders
     path('order/new/', OrderCreate.as_view(), name='order_create'),  # Create a new order
     path('order/<int:pk>/', OrderDetailView.as_view(), name='order_detail'),
-    path('order/<int:order_pk>/add_line/', OrderLineCreateView.as_view(), name='orderlines_create'), # View details of a specific order
+    path('order/<int:pk>/orderline_create/', OrderLineCreate.as_view(), name='orderline_create'), # View details of a specific order
 
 #     path('catalog/order_list/', views.OrdersListView.as_view(), name='order_list'),
 # # mjl 7/31/2024 working on orderline page
@@ -37,7 +37,7 @@ urlpatterns = [
     path('demographics_form/', views.demographics_form, name='demographics_form'),
 
     #for order fulfillment page
-    path('orders/', views.orders, name='orders'),
+    path('orders_list/', views.orders_list, name='orders'),
 
 
 
