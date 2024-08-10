@@ -144,6 +144,9 @@ class Demographics(models.Model):
     ]
     user_class_standing = models.CharField(max_length=1, choices=USER_CLASS_STANDING_CHOICES, null=True)
 
+    # mjl 8/10/2024 adding occupation field
+    user_occupation = models.CharField(max_length=100, null=True)
+
     USER_LIVING_STATUS_CHOICES = [
         ('1', 'Off-Campus - alone'),
         ('2', 'Off-campus - With Family'),
@@ -165,9 +168,29 @@ class Demographics(models.Model):
         ('4', 'Unable to Work')
     ]
     user_employment = models.CharField(max_length=1, choices=USER_EMPLOYMENT_CHOICES)
-    user_ethnicity = models.CharField(max_length=100)
+
+    # mjl 8/10/2024 updating to a choice field
+    USER_ETHNICITY_CHOICES = [
+        ('1', 'Black or African American'),
+        ('2', 'White or Caucasian'),
+        ('3', 'Hispanic or Latinx'),
+        ('4', 'American Indian or Alaskan'),
+        ('5', 'Asian'),
+        ('6', 'Prefer Not to Say'),
+    ]
+    user_ethnicity = models.CharField(max_length=1, choices=USER_ETHNICITY_CHOICES)
+
     user_age = models.CharField(max_length=2)
-    user_gender_identity = models.CharField(max_length=100)
+
+    # mjl 8/10/2024 updating to a choice field
+    USER_GENDER_CHOICES = [
+        ('1', 'Male'),
+        ('2', 'Female'),
+        ('3', 'Non-Binary'),
+        ('4', 'Trans'),
+        ('5', 'Prefer Not to Say')
+    ]
+    user_gender_identity = models.CharField(max_length=1, choices=USER_GENDER_CHOICES)
 
     USER_MARITAL_STATUS_CHOICES = [
         ('Y', 'Yes'),
@@ -203,6 +226,7 @@ class Demographics(models.Model):
             "user_class_standing": self.get_user_class_standing_display(),
             "user_living_status": self.user_living_status,
             "user_transportation": self.user_transportation,
+            "user_occupation": self.user_occupation, # mjl 8/10/2024 added was missing
             "user_employment": self.get_user_employment_display(),
             "user_ethnicity": self.user_ethnicity,
             "user_age": self.user_age,
