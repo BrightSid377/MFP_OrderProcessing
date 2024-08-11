@@ -65,7 +65,7 @@ class OrderCreateForm(forms.ModelForm):
     )
     class Meta:
         model = OrdersHeader
-        fields = ['pickup_location_id', 'order_date', 'order_fill_or_shop', 'is_bag_required', 'order_diapers', 'order_parent_supplies']
+        fields = ['pickup_location_id', 'order_date', 'order_fill_or_shop', 'is_bag_required', 'order_diapers', 'order_parent_supplies', 'order_notes']
     def clean(self):
         cleaned_data = super().clean()
         products = cleaned_data.get('products')
@@ -82,7 +82,7 @@ class OrderCreateForm(forms.ModelForm):
 class OrderLineForm(forms.ModelForm):
     class Meta:
         model = OrderLine
-        fields = ['product_id', 'order_line_number', 'order_quantity_requested', 'order_notes']
+        fields = ['product_id', 'order_line_number', 'order_quantity_requested' ] #, 'order_notes']
         widgets = {
             'order_notes': forms.Textarea(attrs={'rows': 3}),
         }

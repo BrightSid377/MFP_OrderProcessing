@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import OrdersListView, OrderCreate, OrderDetailView, OrderLineCreateView
+from .views import OrdersListView, OrderCreate, OrderDetailView, OrderLineCreateView, FulfillmentUpdate, FulfillmentView
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -37,8 +37,7 @@ urlpatterns = [
     path('demographics_form/', views.demographics_form, name='demographics_form'),
 
     #for order fulfillment page
-    path('orders/', views.orders, name='orders'),
-
-
+    path('fulfillment/', views.FulfillmentView.as_view(), name='fulfillment'),
+    path('fulfillment/<int:pk>/update/', views.FulfillmentUpdate.as_view(), name='fulfillment_update'),
 
 ]

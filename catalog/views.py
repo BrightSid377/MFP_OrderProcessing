@@ -57,6 +57,24 @@ def index(request):
 #         return reverse('orderline_create') # redirects customer to page after commiting change
 #     # should have this redirect to order details to continue entries
 
+class FulfillmentView(LoginRequiredMixin, ListView):
+    model = OrdersHeader
+    template_name = 'catalog/order_fulfillment.html'
+    context_object_name = 'order_fulfillment'
+    paginate_by = 10
+    # def get_queryset(self):
+    #     # Filter orders for those without a fulfillment date
+    #     return OrdersHeader.objects.filter(order_fulfillment_date__isnull=True).order_by('-order_date')
+
+class FulfillmentUpdate(UpdateView):
+    model = OrdersHeader
+    context_object_name = 'fulfillment_update'
+    fields = ['order_id', 'order_date', 'staff_id','order_notes','order_fulfillment_date','order_pickup_status']
+    def get_success_url(self):
+        return reverse('fulfillment')  # redirects customer to page after commiting change
+
+
+
 class OrdersListView(LoginRequiredMixin, ListView):
     model = OrdersHeader
     template_name = 'catalog/order_list.html'
