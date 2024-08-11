@@ -24,9 +24,11 @@
                 <li class="nav-item"> 
                     <a class="nav-link" href="{% url 'index' %}">Home</a> 
                 </li> 
+                {% if not user.is_authenticated %}
                 <li class="nav-item"> 
                     <a class="nav-link" href="{% url 'register' %}"> Sign Up Now</a> 
                 </li> 
+                {% endif %}
                 <!--li class="nav-item"--> 
                     <!--a class="nav-link" href="#">Log In</a-->
                 <!--/li-->

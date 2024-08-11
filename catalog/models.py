@@ -259,7 +259,8 @@ class PickupLocation(models.Model):
         }
 
 class OrderLine(models.Model):
-    order_id = models.ForeignKey('OrdersHeader', on_delete=models.CASCADE)
+    # 8/10 this naming scheme can still be called else where by referencing order_id. do not change breaks order line create function
+    order = models.ForeignKey('OrdersHeader', on_delete=models.CASCADE)
     product_id = models.ForeignKey('Products', on_delete=models.CASCADE)
     order_line_number = models.CharField(max_length=100)
     order_quantity_requested = models.CharField(max_length=100)
@@ -281,7 +282,6 @@ class OrderLine(models.Model):
             "product_id": self.product_id,
             "order_line_number": self.order_line_number,
             "order_quantity_requested": self.order_quantity_requested,
-            "order_notes": self.order_notes
         }
 
 
