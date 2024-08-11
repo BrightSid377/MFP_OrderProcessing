@@ -48,7 +48,7 @@ class Profile(models.Model):
     #     }
 class OrdersHeader(models.Model):
     order_id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     # mjl 8/10/2024 adding join to staff so we can assign them to orders
     staff_id = models.ForeignKey('Staff', null = True, on_delete=models.CASCADE)
     pickup_location_id = models.ForeignKey('PickupLocation', on_delete=models.CASCADE)
@@ -86,13 +86,11 @@ class OrdersHeader(models.Model):
         ('N', 'No'),
     ]
     order_parent_supplies = models.CharField(max_length=1, choices=ORDER_PARENT_SUPPLIES_CHOICES)
-    # mjl 8/10/2024 moved up from order line should be at header level
-    order_notes = models.TextField(null=True, blank=True)
+
     def get_full_ordersheader_info(self):
         return {
             "order_id": self.order_id,
             "User_id": self.user_id,
-            "Staff_id": self.staff_id,
             "pickup_location_id": self.pickup_location_id,
             "order_date": self.order_date,
             "order_fill_or_shop": self.order_fill_or_shop,
@@ -103,8 +101,7 @@ class OrdersHeader(models.Model):
             "order_notification_date_2nd": self.order_notification_date_2nd,
             "order_notification_date_3rd": self.order_notification_date_3rd,
             "order_diapers": self.get_order_diapers_display(),
-            "order_parent_supplies": self.get_order_parent_supplies_display(),
-            "order_notes": self.order_notes  # mjl 8/10/2024 moved up from order line
+            "order_parent_supplies": self.get_order_parent_supplies_display()
         }
 
 class Demographics(models.Model):
@@ -264,8 +261,7 @@ class OrderLine(models.Model):
     product_id = models.ForeignKey('Products', on_delete=models.CASCADE)
     order_line_number = models.CharField(max_length=100)
     order_quantity_requested = models.CharField(max_length=100)
-    # mjl 8/10/2024 moving notes to header level
-    # order_notes = models.TextField(null=True, blank=True)
+    order_notes = models.TextField(null=True, blank=True)
 
     # class Meta:  # mjl 7/31/2024 hopefully sorts the columns dif when displayed by form
     #         fields_order = [
@@ -281,8 +277,8 @@ class OrderLine(models.Model):
             "order_id": self.order_id,
             "product_id": self.product_id,
             "order_line_number": self.order_line_number,
-            "order_quantity_requested": self.order_quantity_requested
-           # "order_notes": self.order_notes
+            "order_quantity_requested": self.order_quantity_requested,
+            "order_notes": self.order_notes
         }
 
 

@@ -86,3 +86,4 @@ class OrderLineForm(forms.ModelForm):
         widgets = {
             'order_notes': forms.Textarea(attrs={'rows': 3}),
         }
+OrderLineFormSet = modelformset_factory(OrderLine, fields=('product_id', 'order_quantity_requested', 'order_notes'), extra=1)
