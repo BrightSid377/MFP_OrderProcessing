@@ -51,6 +51,10 @@ class OrdersHeader(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     # mjl 8/10/2024 adding join to staff so we can assign them to orders
     staff_id = models.ForeignKey('Staff', null = True, on_delete=models.CASCADE)
+    # @property  # mjl 8/10/2024 trying this in place of above code
+    # def staff_id(self):
+    #         return f"{self.staff_id.staff_first_name}"
+
     pickup_location_id = models.ForeignKey('PickupLocation', on_delete=models.CASCADE)
     order_date = models.DateField()
     # order_fill_or_shop = models.CharField(max_length=20)  mjl 7/30/2024 updating to list
@@ -92,6 +96,7 @@ class OrdersHeader(models.Model):
         return {
             "order_id": self.order_id,
             "User_id": self.user_id,
+            "staff_id": self.staff_id,
             "pickup_location_id": self.pickup_location_id,
             "order_date": self.order_date,
             "order_fill_or_shop": self.order_fill_or_shop,
@@ -322,6 +327,7 @@ class Staff(models.Model):
             "staff_last_name": self.staff_last_name,
             "staff_position": self.staff_position
         }
+
 
 class Dependent(models.Model):
     dependent_id = models.AutoField(primary_key=True)

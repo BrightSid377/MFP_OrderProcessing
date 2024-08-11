@@ -66,6 +66,25 @@ class FulfillmentView(LoginRequiredMixin, ListView):
     #     # Filter orders for those without a fulfillment date
     #     return OrdersHeader.objects.filter(order_fulfillment_date__isnull=True).order_by('-order_date')
 
+    # mjl 8/10/2024 trying this to resolve screen showing staff ID and not staff name
+    # https://stackoverflow.com/questions/71692499/django-foreign-key-display-values-in-detail-view
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     staff_obj = self.object.staff # this contain the object that the view is operating upon
+    #     context['items'] = staff_obj # don't forget this also
+    #     # Get all items/Stavke related to the work order/Radni_nalozi
+    #     # context['items'] = Staff.objects.filter(Rn=order_obj)
+    #     return context
+    # mjl 8/10/2024 following borrowed from Andrew's work below on OrderHeader/line
+    # def get_context_data(self, **kwargs):
+    #     self.object = self.get_object()  # assign the object to the view
+    #     context = super().get_context_data(**kwargs)
+    #     context['staff'] = self.object.staff_set.all()
+    #     return context
+
+
+
+
 class FulfillmentUpdate(UpdateView):
     model = OrdersHeader
     context_object_name = 'fulfillment_update'
@@ -171,6 +190,8 @@ class StaffListView(LoginRequiredMixin,generic.ListView):
     model = Staff
     template_name = 'catalog/staff_list.html'
     paginate_by = 10
+    def __str__(self):
+        return self
 
 # mjl 7/30/2024 trying to allow customer to be chosen during order entry
 # https://www.educba.com/django-foreign-key/
