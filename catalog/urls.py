@@ -38,8 +38,7 @@ urlpatterns = [
 
     #for order fulfillment page
     path('orders_list/', views.orders_list, name='orders'),
-
-
+    # mjl 8/10/2024 added for fulfillment page
     path('fulfillment/', views.FulfillmentView.as_view(), name='fulfillment'),
     path('fulfillment/<int:pk>/update/', views.FulfillmentUpdate.as_view(), name='fulfillment_update'),
 

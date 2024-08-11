@@ -86,7 +86,8 @@ class OrdersHeader(models.Model):
         ('N', 'No'),
     ]
     order_parent_supplies = models.CharField(max_length=1, choices=ORDER_PARENT_SUPPLIES_CHOICES)
-
+    # mjl 8/10/2024 moved up from orderline
+    order_notes = models.TextField(null=True, blank=True)
     def get_full_ordersheader_info(self):
         return {
             "order_id": self.order_id,
@@ -101,7 +102,8 @@ class OrdersHeader(models.Model):
             "order_notification_date_2nd": self.order_notification_date_2nd,
             "order_notification_date_3rd": self.order_notification_date_3rd,
             "order_diapers": self.get_order_diapers_display(),
-            "order_parent_supplies": self.get_order_parent_supplies_display()
+            "order_parent_supplies": self.get_order_parent_supplies_display(),
+            "order_notes": self.order_notes
         }
 
 class Demographics(models.Model):
@@ -261,7 +263,8 @@ class OrderLine(models.Model):
     product_id = models.ForeignKey('Products', on_delete=models.CASCADE)
     order_line_number = models.CharField(max_length=100)
     order_quantity_requested = models.CharField(max_length=100)
-    order_notes = models.TextField(null=True, blank=True)
+    # mjl 8/10/2024 moving to order header
+    # order_notes = models.TextField(null=True, blank=True)
 
     # class Meta:  # mjl 7/31/2024 hopefully sorts the columns dif when displayed by form
     #         fields_order = [

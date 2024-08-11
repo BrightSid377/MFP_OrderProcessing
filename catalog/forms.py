@@ -3,6 +3,7 @@ from .models import Demographics, Profile, OrderLine
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from .models import OrdersHeader, Products
+from django.forms import modelformset_factory # mjl 8/10/2024 added to resolve error after merge
 
 def validate_age(value):
     try:
@@ -83,7 +84,8 @@ class OrderLineForm(forms.ModelForm):
     class Meta:
         model = OrderLine
         fields = ['product_id', 'order_line_number', 'order_quantity_requested' ] #, 'order_notes']
-        widgets = {
-            'order_notes': forms.Textarea(attrs={'rows': 3}),
-        }
-OrderLineFormSet = modelformset_factory(OrderLine, fields=('product_id', 'order_quantity_requested', 'order_notes'), extra=1)
+        # widgets = {
+        #     'order_notes': forms.Textarea(attrs={'rows': 3}),
+        # }
+        # mjl 8/10/2024 removing order notes to resolve merge conflict
+OrderLineFormSet = modelformset_factory(OrderLine, fields=('product_id', 'order_quantity_requested'), extra=1)

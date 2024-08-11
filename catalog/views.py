@@ -69,7 +69,7 @@ class FulfillmentView(LoginRequiredMixin, ListView):
 class FulfillmentUpdate(UpdateView):
     model = OrdersHeader
     context_object_name = 'fulfillment_update'
-    fields = ['order_id', 'order_date', 'staff_id','order_notes','order_fulfillment_date','order_pickup_status']
+    fields = ['order_id', 'order_date', 'staff_id','order_fulfillment_date','order_pickup_status']
     def get_success_url(self):
         return reverse('fulfillment')  # redirects customer to page after commiting change
 
