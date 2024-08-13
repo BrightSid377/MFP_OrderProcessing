@@ -1,5 +1,5 @@
+from django.utils import timezone
 from django.urls import reverse_lazy
-
 from .models import (OrdersHeader,Products, Staff, User, OrderLine, Order)
 #, Valueform)
 from django.shortcuts import render, reverse, resolve_url, get_object_or_404
@@ -120,6 +120,7 @@ class OrderCreate(LoginRequiredMixin, CreateView):
             initial['order_diapers'] = last_order.order_diapers
             initial['order_parent_supplies'] = last_order.order_parent_supplies
             initial['order_notes'] = last_order.order_notes
+        initial['order_date'] = timezone.now().date()
 
         return initial
     def form_valid(self, form):
