@@ -1,5 +1,5 @@
 from django import forms
-from .models import Demographics, Profile, OrderLine
+from .models import Demographics, Profile, OrderLine, PickupLocation
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from .models import OrdersHeader, Products
@@ -63,6 +63,11 @@ class OrderCreateForm(forms.ModelForm):
     quantities = forms.CharField(
         widget=forms.HiddenInput(),  # Hide the field from the user
         required=False
+    )
+    pickup_location_id = forms.ModelChoiceField(
+        queryset=PickupLocation.objects.all(),
+        label="Pickup Location",
+        widget=forms.Select(attrs={'class': 'form-control'})
     )
     class Meta:
         model = OrdersHeader

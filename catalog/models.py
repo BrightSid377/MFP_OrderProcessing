@@ -263,6 +263,9 @@ class PickupLocation(models.Model):
             "pickup_location_description": self.pickup_location_description
         }
 
+    def __str__(self):
+        return self.pickup_location_name
+
 class OrderLine(models.Model):
     # 8/10 this naming scheme can still be called else where by referencing order_id. do not change breaks order line create function
     order = models.ForeignKey('OrdersHeader', on_delete=models.CASCADE)
@@ -313,6 +316,9 @@ class Products(models.Model):
         "product_quantity": self.product_quantity
 
         }
+    def __str__(self):
+        return self.product_name
+
 
 class Staff(models.Model):
     staff_id = models.AutoField(primary_key=True)
