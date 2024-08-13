@@ -108,6 +108,20 @@ class OrderCreate(LoginRequiredMixin, CreateView):
     form_class = OrderCreateForm
     template_name = 'catalog/order_create.html'
 
+    def get_initial(self):
+        initial = super().get_initial()
+        # Fetch the last order of the current user
+        last_order = OrdersHeader.objects.filter(user=self.request.user).order_by('-order_date').first()
+        if last_order:
+            # Preload form fields with the last order's values
+            initial['pickup_location_id'] = last_order.pickup_location_id
+            initial['order_fill_or_shop'] = last_order.order_fill_or_shop
+            initial['is_bag_required'] = last_order.is_bag_required
+            initial['order_diapers'] = last_order.order_diapers
+            initial['order_parent_supplies'] = last_order.order_parent_supplies
+            initial['order_notes'] = last_order.order_notes
+
+        return initial
     def form_valid(self, form):
         form.instance.user = self.request.user  # this automatically assign the current user to the order
         response = super().form_valid(form)
