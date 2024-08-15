@@ -152,6 +152,7 @@ class OrderLineCreate(LoginRequiredMixin, FormView):
         order_header = OrdersHeader.objects.get(pk=self.kwargs['pk'])
         # creates each OrderLine instance
         order_lines = form.save(commit=False)
+
         for order_line in order_lines:
             order_line.order = order_header
             order_line.save()
