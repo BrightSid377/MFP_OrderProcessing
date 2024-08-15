@@ -5,7 +5,7 @@
         {% for order in orders %}
             <li>
                 <a href="{% url 'order_detail' pk=order.pk %}">
-                    Order #{{ order.order_id }} - {{ order.order_date }} - {{ order.order_pickup_location }}
+                    Order #{{ order.order_id }} - {{ order.order_date }} - {{ order.pickup_location_id.pickup_location_name}} - Picked Up: {{ order.order_pickup_status }}
                 </a>
             </li>
         {% empty %}
